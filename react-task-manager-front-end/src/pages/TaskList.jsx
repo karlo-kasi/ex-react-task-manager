@@ -1,5 +1,9 @@
-export default function TaskList(){
+
+
+export default function TaskList() {
     return (
-        <h1>Sono la lista delle Task</h1>
+        <div>
+            <h1>Sono la lista delle task</h1>
+        </div>
     )
 }
