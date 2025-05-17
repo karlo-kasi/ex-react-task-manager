@@ -2,9 +2,11 @@ import { memo } from "react"
 
 const TaskRow = memo(({ task }) => {
 
+    console.log("render")
+
     return (
         <>
-            < tbody >
+            <tbody>
                 {
                     task.map((t) => {
                         const { id, title, status, createdAt } = t
@@ -22,7 +24,7 @@ const TaskRow = memo(({ task }) => {
                         )
                     })
                 }
-            </tbody >
+            </tbody>
         </>
 
 

@@ -8,7 +8,7 @@ export default function TaskList() {
     return (
         <div>
             <h1>Sono la lista delle task</h1>
-            <table class="table text-center">
+            <table className="table text-center">
                 <thead>
                     <tr>
                         <th scope="col-4">Nome</th>
