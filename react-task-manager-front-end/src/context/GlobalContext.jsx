@@ -24,7 +24,10 @@ export default function GlobalProvider({ children }) {
     }, [])
 
 
-    const value = { task, setTask }
+    const value = {
+        task,
+        setTask
+    }
 
     return (
         <GlobalContext.Provider value={value}>
