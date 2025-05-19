@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-export default function useTasks() {
+
+
+export default function useTasks(initialValue) {
 
     const [tasks, setTasks] = useState([])
 
@@ -13,11 +15,29 @@ export default function useTasks() {
             .catch(err => console.log(err))
     }, [])
 
-    const addTask = () => {
+    const addTask = async (newTask) => {
+
+
+        const response = await fetch(`${url}/tasks`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTask),
+        })
+
+        const data = await response.json()
+
+        if (data.success === true) {
+            setTasks((prevTask) => [...prevTask, data.task])
+            return true
+        } else {
+            throw new Error(data.message || "Errore durante l'aggiunta della task")
+        }
 
     }
 
-    const removeTask = () => {
+    const removeTask = (idTask) => {
 
     }
 
@@ -32,7 +52,7 @@ export default function useTasks() {
         removeTask,
         updateTask
     }
-    return  dataTask
+    return dataTask
 
 
 }

@@ -1,8 +1,12 @@
 import { useMemo, useRef, useState } from "react"
+import { useGlobalContext } from "../context/GlobalContext";
+
 
 const symbols = `!@#$%^&*()-_=+[]{}|;:'\\",.<>?/~`
 
 export default function AddTask() {
+
+    const { addTask } = useGlobalContext();
 
     const [isOpenAlert, setisOpenAlert] = useState(false)
 
@@ -16,19 +20,35 @@ export default function AddTask() {
     }, [title])
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!isTitleValid || !title || !description.current.value || !select.current.value) {
-            return setisOpenAlert(true)
-        } else {
-            console.log({
-                Nome: title,
-                Descrizione: description.current.value,
-                Stato: select.current.value
-            })
-            setisOpenAlert(false)
+
+        if (!isTitleValid || !title) {
+            setisOpenAlert(true)
+            return
         }
+        setisOpenAlert(false)
+
+        const newTask = {
+            title: title.trim(),
+            description: description.current.value,
+            status: select.current.value
+        }
+
+        console.log(newTask)
+        try {
+            await addTask(newTask)
+            alert("Task creata con successo!")
+            setTitle("")
+            description.current.value = ""
+            select.current.value = ""
+        } catch (error) {
+            alert(error.message)
+        }
+
     }
+
+
 
     return (
         <>
@@ -79,12 +99,10 @@ export default function AddTask() {
                             <select
                                 ref={select}
                                 className="form-select"
-                                aria-label="Default select example"
-                                defaultValue="to-do"
                             >
-                                <option value="to-do">To do</option>
-                                <option value="doing">Doing</option>
-                                <option value="done">Done</option>
+                                <option value="To do">To do</option>
+                                <option value="Doing">Doing</option>
+                                <option value="Done">Done</option>
                             </select>
                         </div>
 
