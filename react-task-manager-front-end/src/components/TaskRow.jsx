@@ -2,8 +2,6 @@ import { memo } from "react"
 
 const TaskRow = memo(({ task }) => {
 
-    console.log("render")
-
     return (
         <>
             <tbody>
@@ -12,14 +10,16 @@ const TaskRow = memo(({ task }) => {
                         const { id, title, status, createdAt } = t
 
                         return (
-                            <tr key={id} className={
-                                status === "To do" ? "table-danger" :
-                                    status === "Doing" ? "table-warning" :
-                                        status === "Done" ? "table-success" : null
-                            }>
-                                <th scope="row">{title}</th>
-                                <td>{status}</td>
-                                <td>{createdAt}</td>
+                            <tr key={id} >
+                                <td >{title}</td>
+                                <td className={
+                                    status === "To do" ? "table-danger" :
+                                        status === "Doing" ? "table-warning" :
+                                            status === "Done" ? "table-success" : null
+                                } >
+                                    {status}
+                                </td>
+                                <td>{new Date(createdAt).toLocaleDateString()}</td>
                             </tr>
                         )
                     })
