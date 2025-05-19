@@ -31,70 +31,76 @@ export default function AddTask() {
     }
 
     return (
-        <div className="border mt-5 p-4">
-            <h2 className='mb-3 text-center'>COMPILA IL MODULO</h2>
-            <form
-                onSubmit={handleSubmit}
-            >
-                {isOpenAlert && (
-                    <div className="alert alert-danger d-flex align-items-center mt-3" role="alert">
-                        <span className="me-2">⚠️</span>
-                        <div>
-                            Tutti i campi sono obbligatori.
-                        </div>
-                    </div>
-                )}
-                <div className="mb-3">
-                    <label className="form-label">Nome del task</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                        className="form-control"
-                        placeholder="Inserisci il tuo nome"
-                    />
-                    {title.trim() && (
-                        <div>
-                            <p className={isTitleValid ? "text-success" : "text-danger"}>
-                                {isTitleValid ? "Username valido" : "Inserisci un Username valido (Non usare Caratteri Speciali)."}
-                            </p>
-                        </div>
-                    )}
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Descrizione</label>
-                    <input
-                        type="text"
-                        ref={description}
-                        className="form-control"
-                        placeholder="Inserisci una Descrizione"
-                    />
-
-                </div>
-
-                <div className="mb-3">
-                    <label className="form-label">Stato</label>
-                    <select
-                        ref={select}
-                        className="form-select"
-                        aria-label="Default select example"
-                        defaultValue="to-do"
+        <>
+            <div className="mt-4">
+                <h1 className="text-center mb-4">Aggiungi Task</h1>
+                <div className="border p-4">
+                    <form
+                        onSubmit={handleSubmit}
                     >
-                        <option value="to-do">To do</option>
-                        <option value="doing">Doing</option>
-                        <option value="done">Done</option>
-                    </select>
-                </div>
+                        {isOpenAlert && (
+                            <div className="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                                <span className="me-2">⚠️</span>
+                                <div>
+                                    Tutti i campi sono obbligatori.
+                                </div>
+                            </div>
+                        )}
+                        <div className="mb-3">
+                            <label className="form-label">Nome del task</label>
+                            <input
+                                type="text"
+                                value={title}
+                                onChange={e => setTitle(e.target.value)}
+                                className="form-control"
+                                placeholder="Inserisci il tuo nome"
+                            />
+                            {title.trim() && (
+                                <div>
+                                    <p className={isTitleValid ? "text-success" : "text-danger"}>
+                                        {isTitleValid ? "Username valido" : "Inserisci un Username valido (Non usare Caratteri Speciali)."}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Descrizione</label>
+                            <input
+                                type="text"
+                                ref={description}
+                                className="form-control"
+                                placeholder="Inserisci una Descrizione"
+                            />
 
-                <div className='d-grid mb-4'>
-                    <button
-                        className='btn btn-primary'
-                        type="submit"
-                    >
-                        AGGIUNGI TASK
-                    </button>
+                        </div>
+
+                        <div className="mb-3">
+                            <label className="form-label">Stato</label>
+                            <select
+                                ref={select}
+                                className="form-select"
+                                aria-label="Default select example"
+                                defaultValue="to-do"
+                            >
+                                <option value="to-do">To do</option>
+                                <option value="doing">Doing</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+
+                        <div className='d-grid mb-4'>
+                            <button
+                                className='btn btn-primary'
+                                type="submit"
+                            >
+                                AGGIUNGI TASK
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </div>
+        </>
+
+
     )
 }
