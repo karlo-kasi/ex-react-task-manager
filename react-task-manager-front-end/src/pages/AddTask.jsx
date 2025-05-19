@@ -47,7 +47,7 @@ export default function AddTask() {
                             </div>
                         )}
                         <div className="mb-3">
-                            <label className="form-label">Nome del task</label>
+                            <label className="form-label">Nome Task</label>
                             <input
                                 type="text"
                                 value={title}
@@ -58,7 +58,7 @@ export default function AddTask() {
                             {title.trim() && (
                                 <div>
                                     <p className={isTitleValid ? "text-success" : "text-danger"}>
-                                        {isTitleValid ? "Username valido" : "Inserisci un Username valido (Non usare Caratteri Speciali)."}
+                                        {isTitleValid ? "Username valido" : "Inserisci una task valida (Non usare caratteri speciali)."}
                                     </p>
                                 </div>
                             )}
@@ -90,8 +90,9 @@ export default function AddTask() {
 
                         <div className='d-grid mb-4'>
                             <button
-                                className='btn btn-primary'
+                                className='btn btn-success'
                                 type="submit"
+                                disabled={!title}
                             >
                                 AGGIUNGI TASK
                             </button>
