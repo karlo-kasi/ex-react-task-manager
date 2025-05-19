@@ -1,12 +1,12 @@
 import { memo } from "react"
 
-const TaskRow = memo(({ task }) => {
+const TaskRow = memo(({ tasks }) => {
 
     return (
         <>
             <tbody>
                 {
-                    task.map((t) => {
+                    tasks.map((t) => {
                         const { id, title, status, createdAt } = t
 
                         return (

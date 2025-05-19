@@ -3,7 +3,7 @@ import { useGlobalContext } from "../context/GlobalContext"
 import TaskRow from "../components/TaskRow"
 
 export default function TaskList() {
-    const { task } = useGlobalContext()
+    const { tasks } = useGlobalContext()
 
     return (
         <div className="mt-4">
@@ -16,11 +16,8 @@ export default function TaskList() {
                         <th className="col-4 text-white">Data Creazione</th>
                     </tr>
                 </thead>
-                <TaskRow task={task} />
+                <TaskRow tasks={tasks} />
             </table>
-
-
-
         </div>
 
     )
