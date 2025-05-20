@@ -13,7 +13,7 @@ export default function useTasks(initialValue) {
             .then(res => res.json())
             .then(data => setTasks(data))
             .catch(err => console.log(err))
-    }, [])
+    }, [tasks])
 
     const addTask = async (newTask) => {
 
@@ -37,7 +37,21 @@ export default function useTasks(initialValue) {
 
     }
 
-    const removeTask = (idTask) => {
+    const removeTask = async (idTask) => {
+
+        const response = await fetch(`${url}/tasks/${idTask}`, {
+            method: 'DELETE'
+        })
+
+        const data = await response.json()
+
+        console.log(data)
+
+        if (data.success === true) {
+            setTasks((prevTask) => prevTask.filter((t) => t.id !== idTask))
+        } else {
+            throw new Error(data.message || "Errore durante l'eliminazione della task")
+        }
 
     }
 
