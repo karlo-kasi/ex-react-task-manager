@@ -1,4 +1,5 @@
 import { memo } from "react"
+import { Link } from "react-router-dom"
 
 const TaskRow = memo(({ tasks }) => {
 
@@ -11,7 +12,9 @@ const TaskRow = memo(({ tasks }) => {
 
                         return (
                             <tr key={id} >
-                                <td >{title}</td>
+                                <td>
+                                    <Link to={`/task/${id}`}>{title}</Link>
+                                </td>
                                 <td className={
                                     status === "To do" ? "table-danger" :
                                         status === "Doing" ? "table-warning" :
