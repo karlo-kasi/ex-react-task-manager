@@ -1,5 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../context/GlobalContext";
+import { useState } from "react";
+import Modal from "../components/Modal";
+
 
 export default function TaskDetail() {
 
@@ -10,6 +13,8 @@ export default function TaskDetail() {
     const { tasks, removeTask } = useGlobalContext();
 
     const task = tasks.find((t) => t.id === parseInt(id))
+
+    const [show, setShow] = useState(false)
 
     if (!task) {
         return <h2>Task non trovata</h2>
@@ -38,11 +43,21 @@ export default function TaskDetail() {
                     <p className="card-text"><strong>Stato:</strong> {task.status}</p>
                     <p className="card-text"><strong>Data:</strong> {new Date(task.createdAt).toLocaleDateString()}</p>
                     <button
-                        onClick={handleDelete}
+                        onClick={() => setShow(true)}
                         className="btn btn-danger"
                     >
                         Elimina Task
                     </button>
+
+                    <Modal
+                        title="Sei sicuro?"
+                        content="Vuoi davvero eliminare questa task?"
+                        show={show}
+                        onClose={() => setShow(false)}
+                        onConfirm={handleDelete}
+                        confirmText="Elimina"
+                    />
+
                 </div>
             </div>
 
