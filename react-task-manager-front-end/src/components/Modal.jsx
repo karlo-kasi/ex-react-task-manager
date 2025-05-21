@@ -23,7 +23,7 @@ export default function Modal({ title, content, show, onClose, onConfirm, confir
 
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={onClose}>Chiudi</button>
-                        <button type="button" className="btn btn-danger" onClick={onConfirm}>{confirmText}</button>
+                        <button type="button" className={`btn ${confirmText === "Salva" ? "btn-primary" : "btn-danger"}`} onClick={onConfirm}>{confirmText}</button>
                     </div>
 
                 </div>

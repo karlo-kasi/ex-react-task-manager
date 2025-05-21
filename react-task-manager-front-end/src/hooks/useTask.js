@@ -55,7 +55,23 @@ export default function useTasks(initialValue) {
 
     }
 
-    const updateTask = () => {
+    const updateTask = async (updatedTask) => {
+
+        const response = await fetch(`${url}/tasks/${updatedTask.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedTask)
+        })
+
+        const data = await response.json()
+
+        if (data.success === true) {
+            setTasks(prev => prev.map((oldTask) => oldTask.id === data.task.id ? data.task : oldTask))
+        } else {
+            throw new Error(data.message || "Errore durante l'eliminazione della task")
+        }
 
     }
 
