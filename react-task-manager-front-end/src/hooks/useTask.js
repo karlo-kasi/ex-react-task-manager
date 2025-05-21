@@ -13,7 +13,7 @@ export default function useTasks(initialValue) {
             .then(res => res.json())
             .then(data => setTasks(data))
             .catch(err => console.log(err))
-    }, [tasks])
+    }, [])
 
     const addTask = async (newTask) => {
 

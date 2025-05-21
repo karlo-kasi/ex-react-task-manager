@@ -1,12 +1,26 @@
 import { useGlobalContext } from "../context/GlobalContext"
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import TaskRow from "../components/TaskRow"
+
+
+function debounce(callback, delay) {
+    let timer;
+    return (value) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback(value);
+        }, delay);
+    };
+}
+
 
 export default function TaskList() {
     const { tasks } = useGlobalContext()
 
     const [sortBy, setSortBy] = useState("createdAt")
     const [sortOrder, setSortOrder] = useState(1)
+
+    const [searchQuery, setSearchQuery] = useState("")
 
     const handleSort = (value) => {
         if (sortBy === value) {
@@ -17,17 +31,24 @@ export default function TaskList() {
         }
     }
 
+    const statusOrder = {
+        "To do": 0,
+        "Doing": 1,
+        "Done": 2
+    }
+
+    const debounceSearch = useCallback(
+        debounce(setSearchQuery, 500), [])
+
 
     const sortedTasks = useMemo(() => {
+
         const newArray = [...tasks]
 
-        const statusOrder = {
-            "To do": 0,
-            "Doing": 1,
-            "Done": 2
-        }
+        const filtered = newArray.filter(task => task.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        console.log(filtered)
 
-        newArray.sort((a, b) => {
+        filtered.sort((a, b) => {
             if (sortBy === "title") {
                 return a.title.localeCompare(b.title) * sortOrder
             } else if (sortBy === "status") {
@@ -37,13 +58,29 @@ export default function TaskList() {
             }
         })
 
-        return newArray
+        return filtered
 
-    }, [tasks, sortBy, sortOrder])
+    }, [tasks, sortBy, sortOrder, searchQuery])
 
     return (
         <div className="mt-4">
             <h1 className="text-center mb-4">Sono la lista delle task</h1>
+
+            <div className="mb-3">
+                <label htmlFor="searchInput" className="form-label">Cerca</label>
+
+                <div className="position-relative">
+                    <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+
+                    <input
+                        type="search"
+                        className="form-control ps-5"
+                        onChange={(e) => debounceSearch(e.target.value)}
+                        placeholder="Cerca una task..."
+                    />
+                </div>
+            </div>
+
             <table className="table table-striped table-bordered text-center">
                 <thead className="table-dark">
                     <tr>
